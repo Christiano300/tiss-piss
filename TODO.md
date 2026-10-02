@@ -4,6 +4,7 @@
 + Einklappbare Tree View
 
 # Integrierter Kalender bei Gruppenanmeldung
++ Filtern von Vorlesungen zu denen man nicht geht (Englisch, Prolog, ...)
 
 # Kalender
 + Redesign

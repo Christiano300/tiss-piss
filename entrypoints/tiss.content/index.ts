@@ -22,7 +22,7 @@ export default defineContentScript({
       <span class="logo-text">PISS</span>
     </a>`;
     document.querySelector("#tuLogo")!.outerHTML = `
-      <a id="piss-tuLogo" href="https://www.tuwien.ac.at">
+      <a id="piss-tuLogo" href="https://www.tuwien.ac.at/education/favorites.xhtml?psite=dash">
        <img src="${assetBaseUrl}/images/mobile/tu_logo.png" alt="TU Wien Logo">
        </a>
     `;
@@ -30,7 +30,7 @@ export default defineContentScript({
     // remove sub-header if empty
     document.querySelector("#supNavHeaderWrapper")!.remove();
     const subHeader = document.querySelector("#subHeader");
-    const text = subHeader?.innerHTML.trim();
+    const text = subHeader?.innerHTML?.trim();
     if (subHeader && (text === "<br>" || text === "")) {
       subHeader.remove();
     }
@@ -55,6 +55,8 @@ export default defineContentScript({
     target.prepend(newContainer);
     oldContainer.remove();
 
+    (document.querySelector("#lehreLink")! as HTMLLinkElement).href! = "/education/favorites.xhtml";
+
     void injectNavStars();
 
     if (new URLSearchParams(window.location.search).get("psite") === "dash") {
@@ -63,5 +65,21 @@ export default defineContentScript({
       else console.warn("[tiss-piss] psite=dash but div#contentInner not found");
       return;
     }
+
+    if (window.location.pathname.startsWith("education/course/groupList.xhtml")) {
+      parseGroupList();
+    }
   },
+
 });
+
+function parseGroupList() {
+  const groupElements = document.querySelectorAll(".groupWrapper");
+  const groups = [];
+  for (const group of groupElements) {
+    const table = group.querySelector(".listTable table");
+    if (!table) continue;
+    /(\d{2})\.(\d{2})\.(\d{4})/.exec("")
+  }
+}
+

@@ -670,3 +670,25 @@ body.hilfe #headerRightInside {
 body.hilfe #content h1.hilfeAktiv + .extLinkContainer h1 {
   border-bottom: 0;
 }
+
+#supNav .linkBlock a .piss-nav-star {
+  display: inline-block;
+  width: 1.4em;
+  margin-right: 0.35em;
+  font-size: 1.2em;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text-faint);
+  opacity: 0.75;
+  user-select: none;
+}
+
+#supNav .linkBlock a .piss-nav-star:hover {
+  opacity: 1;
+}
+
+#supNav .linkBlock a .piss-nav-star-on {
+  color: #ffd43b;
+  opacity: 1;
+}

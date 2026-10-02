@@ -7,7 +7,7 @@ export default defineConfig({
     startUrls: ["https://tiss.tuwien.ac.at/"]
   },
   manifest: ({browser}) => ({
-    permissions: browser === "chrome" ? ['favicon'] : [],
+    permissions: browser === "chrome" ? ['favicon', 'storage'] : ['storage'],
     browser_specific_settings: {
       gecko: {
         id: "tiss-piss@patzl.dev",

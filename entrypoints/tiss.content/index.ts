@@ -1,4 +1,6 @@
 import "./style.css";
+import { mountDashboard } from "./dashboard";
+import { injectNavStars } from "./navFavorites";
 
 export default defineContentScript({
   matches: ["*://*.tiss.tuwien.ac.at/*"],
@@ -52,5 +54,14 @@ export default defineContentScript({
     newContainer.append(...oldContainer.querySelectorAll("div a"));
     target.prepend(newContainer);
     oldContainer.remove();
+
+    void injectNavStars();
+
+    if (new URLSearchParams(window.location.search).get("psite") === "dash") {
+      const inner = document.querySelector("div#contentInner");
+      if (inner) mountDashboard(inner);
+      else console.warn("[tiss-piss] psite=dash but div#contentInner not found");
+      return;
+    }
   },
 });

@@ -1,6 +1,13 @@
 import "./style.css";
 import { mountDashboard } from "./dashboard";
 import { injectNavStars } from "./navFavorites";
+import { runGroupListScript } from "./groups";
+
+declare global {
+  interface Window {
+    PISSLocale: string;
+  }
+}
 
 export default defineContentScript({
   matches: ["*://*.tiss.tuwien.ac.at/*"],
@@ -13,16 +20,24 @@ export default defineContentScript({
     if (assetBaseUrl) {
       document.documentElement.style.setProperty("--base-url", assetBaseUrl);
     }
+    
+    // We're on a subpage belonging to help - nothing should be done here
+    if (document.body.classList.contains("hilfe")) {
+      return;
+    }
+
+    // get locale
+    window.PISSLocale = document.documentElement.lang || "en";
 
     // cleanup header html
     document.querySelector("#logo")!.innerHTML = `
-    <a href="/">
+    <a href="/education/favorites.xhtml?psite=dash">
       <span class="logo-text">TISS</span>
       <span class="logo-sep"></span>
       <span class="logo-text">PISS</span>
     </a>`;
     document.querySelector("#tuLogo")!.outerHTML = `
-      <a id="piss-tuLogo" href="https://www.tuwien.ac.at/education/favorites.xhtml?psite=dash">
+      <a id="piss-tuLogo" href="https://www.tuwien.ac.at/">
        <img src="${assetBaseUrl}/images/mobile/tu_logo.png" alt="TU Wien Logo">
        </a>
     `;
@@ -57,6 +72,9 @@ export default defineContentScript({
 
     (document.querySelector("#lehreLink")! as HTMLLinkElement).href! = "/education/favorites.xhtml";
 
+    // remove spacing above group list
+    document.getElementById("groupContentForm:groupListPanel")?.querySelector("br")?.remove();
+
     void injectNavStars();
 
     if (new URLSearchParams(window.location.search).get("psite") === "dash") {
@@ -66,20 +84,10 @@ export default defineContentScript({
       return;
     }
 
-    if (window.location.pathname.startsWith("education/course/groupList.xhtml")) {
-      parseGroupList();
+    if (window.location.pathname.startsWith("/education/course/groupList.xhtml")) {
+      const messagePanel = document.getElementById("globalMessagesPanel");
+      messagePanel!.insertAdjacentHTML("afterend", "<div id='group-calendar'></div>");
+      runGroupListScript();
     }
   },
-
 });
-
-function parseGroupList() {
-  const groupElements = document.querySelectorAll(".groupWrapper");
-  const groups = [];
-  for (const group of groupElements) {
-    const table = group.querySelector(".listTable table");
-    if (!table) continue;
-    /(\d{2})\.(\d{2})\.(\d{4})/.exec("")
-  }
-}
-

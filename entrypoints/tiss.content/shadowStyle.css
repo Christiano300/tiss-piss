@@ -1,0 +1,35 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+:root {
+  --bg: #0e1621;
+  --surface: #151e2b;
+  --surface-2: #1c2735;
+  --surface-3: #24303f;
+  --border: #2a3748;
+  --border-strong: #3a4a5e;
+  --text: #e6ebf2;
+  --text-muted: #9fb0c1;
+  --text-faint: #6b7d8f;
+  --link: #66b8e8;
+  --link-hover: #8fd0f5;
+  --accent-lehre: #ff9532;
+  --accent-forschung: #70c939;
+  --accent-organisation: #995fef;
+  --accent-info: #4cc2f0;
+  --msg-info: #4cc2f0;
+  --msg-success: #7ec850;
+  --msg-warn: #ffb84d;
+  --msg-error: #ff6b6b;
+  --font-ui: "Segoe UI", Inter, system-ui, -apple-system, Arial, sans-serif;
+  --font-body: "Segoe UI", Inter, system-ui, Arial, sans-serif;
+  --max-w: max(40em, 90%);
+  --sidebar-w: 240px;
+  --page-pad: 32px;
+  --radius: 8px;
+  --radius-sm: 6px;
+}
+
+* {
+  font-family: var(--font-ui);
+}

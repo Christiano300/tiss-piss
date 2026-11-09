@@ -8,7 +8,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   }),
   webExt: {
-    startUrls: ["https://tiss.tuwien.ac.at/"]
+    startUrls: ["https://tiss.tuwien.ac.at/"],
+    chromiumArgs: ['--user-data-dir=./.wxt/chrome-profile', '--remote-debugging-port=9222',],
+    keepProfileChanges: true,
   },
   manifest: ({browser}) => ({
     permissions: browser === "chrome" ? ['favicon', 'storage'] : ['storage'],

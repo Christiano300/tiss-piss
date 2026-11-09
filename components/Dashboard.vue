@@ -11,6 +11,7 @@ const loadError = ref(false);
 
 onMounted(async () => {
   try {
+    document.title = 'Dashboard | TU Wien';
     favorites.value = await getNavFavorites();
   } catch {
     loadError.value = true;
@@ -61,7 +62,7 @@ const groups = computed(() =>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="css">
 #piss-dashboard {
   padding: 8px 0 24px;
 }

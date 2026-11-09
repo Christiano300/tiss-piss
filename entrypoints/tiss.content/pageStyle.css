@@ -28,8 +28,6 @@
   --page-pad: 32px;
   --radius: 8px;
   --radius-sm: 6px;
-  --base-url: "";
-  --tu-logo-url: var(--base-url) "/images/tu_logo_cap.png";
 }
 
 body:not(.hilfe) {
@@ -123,9 +121,9 @@ body:not(.hilfe) {
       border-radius: 1em;
       background: var(--accent-info);
       transition:
-        width .2s ease-out,
-        height .2s ease-in,
-        margin .2s ease-out;
+        width 0.2s ease-out,
+        height 0.2s ease-in,
+        margin 0.2s ease-out;
     }
 
     &:hover .logo-sep {
@@ -133,9 +131,9 @@ body:not(.hilfe) {
       width: 0.7em;
       margin: 0 0.1em;
       transition:
-        width .2s ease-in,
-        height .2s ease-out,
-        margin .2s ease-in;
+        width 0.2s ease-in,
+        height 0.2s ease-out,
+        margin 0.2s ease-in;
     }
   }
 
@@ -163,24 +161,54 @@ body:not(.hilfe) {
   }
 
   #content table {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
     border-radius: var(--radius);
     width: 100%;
-    border-collapse: separate;
     border-spacing: 0;
   }
 
-  #content table :is(th, td) {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
+  #content .ui-datatable th {
+    box-shadow: none !important;
+  }
+
+  #content table :is(td, th) {
     color: var(--text);
   }
 
   #content table th {
-    background: var(--surface-2);
+    background: var(--surface-2) !important;
     font-weight: 600;
     text-align: left;
+  }
+
+  #content table tbody th {
+    background: var(--surface-2) !important;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .ui-datatable .ui-datatable-even {
+    background: var(--surface) !important;
+  }
+
+  .ui-datatable .ui-datatable-odd {
+    background: var(--surface-2) !important;
+  }
+
+  #content table tfoot td {
+    background: var(--surface-2) !important;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  #content table :is(td, th, tbody, thead) {
+    border: none !important;
+  }
+
+  #content table :is(tbody, tfoot) tr {
+    border: none !important;
+    border-top: 1px solid var(--border) !important;
   }
 
   #content .bulletList li {
@@ -263,10 +291,10 @@ body:not(.hilfe) {
 
   .groupWrapper {
     background: var(--surface-2) !important;
-    padding-right: .5em !important;
+    padding-right: 0.5em !important;
     color: #dde;
 
-    :not(.groupWrapper)+& {
+    :not(.groupWrapper) + & {
       border-top-left-radius: 1em !important;
       border-top-right-radius: 1em !important;
     }
@@ -292,7 +320,7 @@ body:not(.hilfe) {
   }
 
   .groupHeaderWrapper {
-    padding: .5em 0 !important;
+    padding: 0.5em 0 !important;
   }
 }
 
@@ -380,7 +408,8 @@ body:is(.organisation, .forschung, .lehre) {
     li {
       float: none;
       margin: 0;
-      font: 1.4rem var(--font-ui);
+      font-size: 1.4rem;
+      font-family: var(--font-ui);
 
       :is(span, a) {
         color: var(--text-muted);
@@ -438,9 +467,11 @@ body:is(.organisation, .forschung, .lehre) {
     height: auto !important;
     text-indent: 0;
     display: block;
-    font: 600 1.5rem var(--font-ui);
+    font-size: 1.5rem;
+    font-family: var(--font-ui);
+    font-weight: 600;
     color: var(--text-muted);
-    padding: .7em 1em;
+    padding: 0.7em 1em;
     border-radius: var(--radius-sm);
     outline: none;
 
@@ -478,7 +509,10 @@ body:is(.organisation, .forschung, .lehre) {
       padding: 7px 12px;
       display: block;
       color: var(--text) !important;
-      font: 500 1.35rem/1.4 var(--font-ui);
+      font-size: 1.35rem;
+      line-height: 1.4;
+      font-family: var(--font-ui);
+      font-weight: 500;
       border-radius: var(--radius-sm);
 
       &:hover {
@@ -519,7 +553,7 @@ body:is(.organisation, .forschung, .lehre) {
       }
     }
 
-    .currentPageItem>span>a {
+    .currentPageItem > span > a {
       color: var(--text) !important;
     }
   }
@@ -588,7 +622,8 @@ body:is(.organisation, .forschung, .lehre) {
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 8px 10px;
-    font: 1.4rem var(--font-body);
+    font-size: 1.4rem;
+    font-family: var(--font-body);
     min-height: 36px;
 
     &:focus {
@@ -600,11 +635,15 @@ body:is(.organisation, .forschung, .lehre) {
 
   #content :is(input[type="submit"], .primaryButton) {
     background: var(--accent-info);
+    background-image: none !important;
     border: 0;
     border-radius: var(--radius-sm);
-    padding: 10px 22px;
-    font: 600 1.4rem var(--font-ui);
+    padding: 10px 1em;
+    font-size: 1.3rem !important;
+    font-family: var(--font-ui);
+    font-weight: 600;
     color: #062033;
+    text-shadow: none !important;
     cursor: pointer;
 
     &:hover {
@@ -618,7 +657,9 @@ body:is(.organisation, .forschung, .lehre) {
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-sm);
     padding: 10px 22px;
-    font: 600 1.4rem var(--font-ui);
+    font-size: 1.4rem;
+    font-family: var(--font-ui);
+    font-weight: 600;
     cursor: pointer;
 
     &:hover {
@@ -720,7 +761,8 @@ body.organisation a {
 
   &.external,
   .bulletList & {
-    filter: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(3522%) hue-rotate(238deg) brightness(96%) contrast(97%);
+    filter: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(3522%) hue-rotate(238deg)
+      brightness(96%) contrast(97%);
   }
 }
 
@@ -746,4 +788,11 @@ body.lehre #supNav .linkBlock a:hover {
 
 body.forschung #supNav .linkBlock a:hover {
   border-left-color: var(--accent-forschung);
+}
+
+.piss-fav-cat-spotlight {
+  float: right;
+  display: flex;
+  gap: .4em;
+  margin-right: 0.5em;
 }

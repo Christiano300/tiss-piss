@@ -1,6 +1,6 @@
 import type { Group, GroupTimeEntry, WeekClustering, ClusteringSector, Sector } from "./groups";
 import { createApp } from 'vue';
-import GroupCalendar from './GroupCalendar.vue';
+import GroupCalendar from '~/components/GroupCalendar.vue';
 
 
 export type ClusterInfo = {

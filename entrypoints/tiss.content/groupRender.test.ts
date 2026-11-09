@@ -10,7 +10,7 @@ const { createApp, mount } = vi.hoisted(() => {
 vi.mock("vue", () => ({ createApp }));
 vi.mock("./GroupCalendar.vue", () => ({ default: { name: "GroupCalendarStub" } }));
 
-import GroupCalendar from "./GroupCalendar.vue";
+import GroupCalendar from "~/components/GroupCalendar.vue";
 import { renderGroups, type AllCalendars, type InfoClusteredSector } from "./groupRender";
 import { GroupEnrolStatus, type ClusteringSector, type Group, type Sector, type WeekClustering } from "./groups";
 

@@ -58,8 +58,8 @@
 </template>
 
 <script setup lang="ts">
-import type { AllCalendars, InfoClusteredSector } from './groupRender';
-import { GroupEnrolStatus, enrolmentStatusName, type Group, type WeekClustering } from './groups';
+import type { AllCalendars, InfoClusteredSector } from '../entrypoints/tiss.content/groupRender';
+import { GroupEnrolStatus, enrolmentStatusName, type Group, type WeekClustering } from '../entrypoints/tiss.content/groups';
 
 const gcd = (a: number, b: number): number => (!b ? a : gcd(b, a % b));
 const lcm = (x: number, y: number) => (x * y) / gcd(x, y);

@@ -1,28 +1,32 @@
-import { defineConfig } from 'wxt';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "wxt";
+import tailwindcss from "@tailwindcss/vite";
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-  modules: ['@wxt-dev/module-vue'],
+  modules: ["@wxt-dev/module-vue"],
   vite: () => ({
     plugins: [tailwindcss()],
   }),
   webExt: {
     startUrls: ["https://tiss.tuwien.ac.at/"],
-    chromiumArgs: ['--user-data-dir=./.wxt/chrome-profile', '--remote-debugging-port=9222',],
+    chromiumArgs: ["--user-data-dir=./.wxt/chrome-profile", "--remote-debugging-port=9222"],
     keepProfileChanges: true,
   },
-  manifest: ({browser}) => ({
-    permissions: browser === "chrome" ? ['favicon', 'storage'] : ['storage'],
+  manifest: ({ browser }) => ({
+    permissions: browser === "chrome" ? ["favicon", "storage"] : ["storage"],
+    web_accessible_resources: [
+      {
+        resources: ["icons/*.svg", "TUWEL_Logo.png"],
+        matches: ["*://*.tiss.tuwien.ac.at/*"],
+      },
+    ],
     browser_specific_settings: {
       gecko: {
         id: "tiss-piss@patzl.dev",
         data_collection_permissions: {
-          required: [
-            "none"
-          ]
-        }
-      }
-    }
-  })
+          required: ["none"],
+        },
+      },
+    },
+  }),
 });

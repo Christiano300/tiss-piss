@@ -3,15 +3,17 @@ import "./shadowStyle.css";
 import { mountDashboard } from "./dashboard";
 import { injectNavStars } from "./navFavorites";
 import { runGroupListScript } from "./groups";
+import { replaceIcon, replaceBackgroundIcon } from "./media";
 import SpotilightSearch from "@/components/SpotilightSearch.vue";
 
 const searchItems = ref(buildSearchItems());
 
 const Root = defineComponent({
   setup() {
-    return () => h(SpotilightSearch, {
-      values: searchItems.value,
-    });
+    return () =>
+      h(SpotilightSearch, {
+        values: searchItems.value,
+      });
   },
 });
 
@@ -69,6 +71,18 @@ export default defineContentScript({
 
     checkCustomPages();
 
+    document.querySelectorAll("img").forEach((el) => {
+      replaceIcon(el, assetBaseUrl ?? "");
+    });
+
+    document.querySelectorAll(".item-incomplete .ui-accordion-header").forEach((el) => {
+      replaceBackgroundIcon(el as HTMLElement, "cross");
+    });
+
+    document.querySelectorAll(".item-complete .ui-accordion-header").forEach((el) => {
+      replaceBackgroundIcon(el as HTMLElement, "check");
+    });
+
     const favorites = JSON.parse(localStorage.getItem("tiss-piss-favorites") || "{}") as Record<
       string,
       { type: string; name: string; url: string }
@@ -109,9 +123,10 @@ export default defineContentScript({
 });
 
 function buildSearchItems() {
-  const favorites = JSON.parse(
-    localStorage.getItem("tiss-piss-favorites") || "{}",
-  ) as Record<string, { type: string; name: string; url: string }>;
+  const favorites = JSON.parse(localStorage.getItem("tiss-piss-favorites") || "{}") as Record<
+    string,
+    { type: string; name: string; url: string }
+  >;
 
   return [
     ...Object.entries(favorites).map(([courseNr, { type, name, url }]) => ({
@@ -158,16 +173,16 @@ function injectFavCatFilters() {
   const categoryFiltering = getCategoryFiltering();
 
   const headers = document.querySelectorAll("#contentForm\\:groupPanel > .subscriptionGroupHead");
-  Array.from(headers).map((header) => {
+  Array.from(headers).map((header, idx) => {
     const idEl = header.querySelector("a.actionIcon") as HTMLAnchorElement | null;
     if (!idEl) return;
     const categoryId = new URLSearchParams(idEl.search).get("sgId");
     if (!categoryId) return;
 
-    const checkId = `tiss-piss-fav-cat-${categoryId}`;
     const el = document.createElement("span");
+    const checkId = `piss-fav-cat-${idx}`;
     el.className = "piss-fav-cat-spotlight";
-    el.innerHTML = `<label for="${checkId}">Spotlight</label><input type="checkbox" id="${checkId}" ${
+    el.innerHTML = `<label for="${checkId}">In Suche anzeigen</label><input type="checkbox" id="${checkId}" ${
       (categoryFiltering[categoryId] ?? true) ? "checked" : ""
     }>`;
     header.appendChild(el);

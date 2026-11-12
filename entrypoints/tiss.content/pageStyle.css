@@ -140,7 +140,6 @@ body:not(.hilfe) {
   #piss-headerNav {
     display: flex;
     align-items: center;
-    gap: 1em;
   }
 
   #headerRight {
@@ -186,6 +185,16 @@ body:not(.hilfe) {
     background: var(--surface-2) !important;
     font-weight: 600;
     text-align: left;
+  }
+
+  table.standard tbody {
+    tr.even {
+      background: var(--surface) !important;
+    }
+
+    tr.odd {
+      background: var(--surface-2) !important;
+    }
   }
 
   .ui-datatable .ui-datatable-even {
@@ -289,6 +298,22 @@ body:not(.hilfe) {
     }
   }
 
+  .ui-widget-content {
+    background: var(--bg) !important;
+
+    &.ui-panel-content {
+      border: none !important;
+    }
+  }
+
+  fieldset {
+    background: var(--surface-2) !important;
+
+    li {
+      color: #dde !important;
+    }
+  }
+
   .groupWrapper {
     background: var(--surface-2) !important;
     padding-right: 0.5em !important;
@@ -308,14 +333,6 @@ body:not(.hilfe) {
       margin-bottom: 2rem !important;
       border-bottom-left-radius: 1em !important;
       border-bottom-right-radius: 1em !important;
-    }
-
-    fieldset {
-      background: var(--surface-2) !important;
-
-      li {
-        color: #dde !important;
-      }
     }
   }
 
@@ -405,6 +422,10 @@ body:is(.organisation, .forschung, .lehre) {
     align-items: center;
     gap: 4px;
 
+    #hotkey_button {
+      display: none;
+    }
+
     li {
       float: none;
       margin: 0;
@@ -415,8 +436,11 @@ body:is(.organisation, .forschung, .lehre) {
         color: var(--text-muted);
         height: auto;
         line-height: 1;
-        padding: 8px 12px;
         border-radius: var(--radius-sm);
+      }
+      
+      a {
+        padding: 1em;
       }
 
       a:hover {
@@ -432,12 +456,13 @@ body:is(.organisation, .forschung, .lehre) {
       font-weight: 600;
     }
 
-    .toolHome {
-      padding-left: 0;
+    a > .toolLogout {
+      background: none;
+      padding: 0;
     }
 
-    .toolLogin {
-      padding-right: 0;
+    .toolHome {
+      padding-left: 0;
     }
   }
 
@@ -471,8 +496,8 @@ body:is(.organisation, .forschung, .lehre) {
     font-family: var(--font-ui);
     font-weight: 600;
     color: var(--text-muted);
-    padding: 0.7em 1em;
-    border-radius: var(--radius-sm);
+    background: var(--surface);
+    padding: 0.5em 0.5em;
     outline: none;
 
     &:hover {
@@ -480,6 +505,60 @@ body:is(.organisation, .forschung, .lehre) {
       background: var(--surface-2);
       color: var(--text);
     }
+  }
+
+  #lehreLink {
+    border-top-left-radius: var(--radius-sm);
+    border-bottom-left-radius: var(--radius-sm);
+    border: 1px solid var(--accent-lehre);
+    border-right: none;
+    position: relative;
+    top: 0;
+    left: 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(
+        in oklch,
+        var(--accent-lehre) 10%,
+        var(--accent-forschung) 90% 100%
+      );
+    }
+  }
+
+  #forschungLink {
+    border: 1px solid var(--accent-forschung);
+    border-left: none;
+    border-right: none;
+    position: relative;
+    top: 0;
+    left: 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(
+        in oklab,
+        var(--accent-forschung) 10%,
+        var(--accent-organisation) 90% 100%
+      );
+    }
+  }
+
+  #organisationLink {
+    border: 1px solid var(--accent-organisation);
+    border-left-width: 0;
+    border-top-right-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
   }
 
   &.lehre #lehreLink {
@@ -617,9 +696,9 @@ body:is(.organisation, .forschung, .lehre) {
   input:is([type="text"], [type="password"], [type="email"], [type="number"]),
   select,
   textarea {
-    background: var(--surface-2);
+    background: var(--surface-2) !important;
     color: var(--text);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong) !important;
     border-radius: var(--radius-sm);
     padding: 8px 10px;
     font-size: 1.4rem;
@@ -670,6 +749,7 @@ body:is(.organisation, .forschung, .lehre) {
 
   .styledCommandBox {
     margin: 14px 0;
+    background: none !important;
 
     li {
       margin: 0 6px 0 0;
@@ -793,6 +873,6 @@ body.forschung #supNav .linkBlock a:hover {
 .piss-fav-cat-spotlight {
   float: right;
   display: flex;
-  gap: .4em;
+  gap: 0.4em;
   margin-right: 0.5em;
 }

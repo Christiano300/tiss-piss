@@ -1,15 +1,13 @@
 <template>
     <div v-if="visible"
         class="bg-slate-700/40 backdrop-blur-md rounded-xl p-4 fixed left-0 right-0 w-fit mx-auto max-h-3/4 mt-32 z-100 flex flex-col">
-        <input type="text" v-model="search" placeholder="Search..." ref="input"
-        @blur="visible = false"
+        <input type="text" v-model="search" placeholder="Search..." ref="input" @blur="visible = false"
             class="w-full text-3xl p-5 rounded-lg bg-transparent bg-none border-none outline-none text-white" />
         <div
             class="py-2 overflow-y-scroll scrollbar-thin scrollbar-gutter-both scrollbar-thumb-slate-300/40 scrollbar-track-transparent">
             <div v-for="value, idx in filteredValues" :key="value.id"
                 class="rounded-xl my-1 px-3 py-1 hover:bg-slate-400/20 cursor-pointer"
-                :class="{ 'bg-slate-400/40!': idx === selectedIdx }"
-                @pointerdown="selectedIdx = idx; submit();">
+                :class="{ 'bg-slate-400/40!': idx === selectedIdx }" @pointerdown="selectedIdx = idx; submit();">
                 <p class="text-white text-3xl my-1">{{ value.name }}</p>
                 <p class="text-gray-300 text-lg my-1">{{ value.description }}</p>
             </div>
@@ -71,7 +69,10 @@ function submit() {
     const selectedValue = filteredValues.value[selectedIdx.value];
     if (selectedValue) {
         visible.value = false;
-        window.location.href = selectedValue.url;
+        const u = new URL(selectedValue.url, location.origin);
+        if ((u.protocol === "http:" || u.protocol === "https:") && u.host === location.host) {
+            window.location.href = u.href;
+        }
     }
 }
 </script>
